@@ -7,6 +7,34 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="username">Nombre de Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="register">Registrarse</string>
+    <string name="completeName">Nombre Completo</string>
+    <string name="exampleCompleteName">ej: Osvaldo Ortega Pérez</string>
+    <string name="exampleEmail">Nombre Completo</string>
+    <string name="Email">Correo electrónico</string>
+    <string name="confirmPassword">Confirmar contraseña</string>
+
+    <string name="usuario">Usuario</string>
+    <string name="control_parental">Control Parental</string>
+
+    <string name="ahorros">Ahorros</string>
+    <string name="perfil">Perfil</string>
+    <string name="ahorrar">Ahorrar</string>
+    <string name="ej_cuenta">Cuenta:</string>
+    <string name="tipo_hint">Tipo de ahorro</string>
+    <string name="duracion">Duración:</string>
+    <string name="ahorro_gen">Ahorro Generado:</string>
+    <string name="bonus">Interés (7% Anual):</string>
+    <string name="movimientos_icono">movimientos_icono</string>
+    <string name="movimientos">Movimientos</string>
+    <string name="su_saldo_actual_es">SU SALDO ACTUAL ES:</string>
+    <string name="estado_de_cuenta">Estado de cuenta</string>
+    <string name="cambio_de_divisas">Cambio de Divisas</string>
+
+    <string name="_340_50">$340.50</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

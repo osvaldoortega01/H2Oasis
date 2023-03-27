@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityRegistration">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="173dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user_plus_solid"/>
+<!--        app:tint="@color/md_theme_light_tertiary" />-->
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="184dp"
+        android:text="@string/register"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_CompleteName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/completeName"
+        android:layout_marginTop="12sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_register">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:maxLength="255"
+            android:id="@+id/tiet_CompleteName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_Username"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        android:layout_marginTop="12sp"
+
+
+        app:layout_constraintStart_toStartOf="@+id/ti_CompleteName"
+        app:layout_constraintTop_toBottomOf="@+id/ti_CompleteName" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:maxLength="20"
+            android:id="@+id/tiet_Username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_Password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        app:endIconMode="password_toggle"
+        android:layout_marginTop="12sp"
+
+        app:layout_constraintStart_toStartOf="@+id/ti_Username"
+        app:layout_constraintTop_toBottomOf="@+id/ti_Username" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_Password"
+            android:maxLength="30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textSize="12sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_ConfirmPassword"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/confirmPassword"
+        app:endIconMode="password_toggle"
+        android:layout_marginTop="12sp"
+
+        app:layout_constraintStart_toStartOf="@+id/ti_Password"
+        app:layout_constraintTop_toBottomOf="@+id/ti_Password" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_ConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textSize="12sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_EmailAddress"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/Email"
+        android:layout_marginTop="12sp"
+
+        app:layout_constraintStart_toStartOf="@+id/ti_ConfirmPassword"
+        app:layout_constraintTop_toBottomOf="@+id/ti_ConfirmPassword" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:maxLength="100"
+            android:id="@+id/tiet_EmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/register"
+        android:text="@string/register"
+        app:icon="@drawable/ic_round_how_to_reg_24"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
