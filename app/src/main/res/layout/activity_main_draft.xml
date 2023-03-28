@@ -90,7 +90,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_MiPrimerBanco"
-        app:srcCompat="@drawable/logo_myfirstbank" />
+        app:srcCompat="@drawable/logo_color_no_background" />
 
     <TextView
         android:id="@+id/tv_MiPrimerBanco"

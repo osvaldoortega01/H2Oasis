@@ -21,7 +21,8 @@
             android:exported="false" />
         <activity
             android:name=".ActivityLogin"
-            android:exported="false" />
+            android:exported="true"
+            android:label="Login"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
