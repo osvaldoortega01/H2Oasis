@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityLogin">
+    tools:context=".ActivityAgregarCisterna">
 
     <ImageView
         android:id="@+id/imageView"
@@ -17,52 +17,97 @@
         android:layout_marginTop="24sp"/>
 
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="-80dp"
+        android:alpha="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_circle_24" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="-100dp"
+        android:layout_marginTop="-20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_circle_24"
+        android:alpha="0.5"/>
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_Username"
+        android:id="@+id/ti_Quantity"
 
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="@string/username"
+        android:ems="10"
+        android:hint="@string/cantidad"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.5"
         android:layout_width="300dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" >
-        <requestFocus/>
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_Username"
+            android:id="@+id/tiet_Quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             />
+            android:textSize="12sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_Password"
+        android:id="@+id/ti_Capacity"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         android:layout_width="300dp"
-        app:endIconMode="password_toggle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_Username"
-        android:hint="@string/password"
+        app:layout_constraintTop_toBottomOf="@+id/ti_Quantity"
+        android:hint="@string/capacidad"
 
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_Password"
-            android:inputType="textPassword"
+            android:id="@+id/tiet_Capacity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:textSize="12sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_Description"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_width="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ti_Capacity"
+        android:hint="@string/capacidad"
+
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -70,27 +115,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="96dp"
         android:contentDescription="@string/login"
-        android:text="@string/login"
-        app:icon="@drawable/ic_baseline_login_24"
-        app:layout_constraintBottom_toTopOf="@+id/btn_Register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/add"
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_Register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="40dp"
-        android:contentDescription="@string/register"
-        android:text="@string/register"
-        app:icon="@drawable/ic_round_how_to_reg_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+    <!--        app:icon="@drawable/ic_baseline_login_24"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
