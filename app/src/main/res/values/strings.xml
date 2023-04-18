@@ -83,4 +83,10 @@
     <string name="add">Agregar</string>
     <string name="cantidad">Cantidad</string>
     <string name="capacidad">Capacidad</string>
+    <string name="configuracion">Configuración</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="fillWaterTank">Llenar Cisterna</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="description">Descripción</string>
+    <string name="shortName">Nombre Corto</string>
 </resources>

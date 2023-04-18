@@ -7,22 +7,22 @@
     tools:context=".ActivityMainDRAFT">
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_MenuMovimientos"
+        android:id="@+id/btn_FillWaterTank"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
 
-        android:contentDescription="@string/movimientos"
-        android:text="@string/movimientos"
-        app:icon="@drawable/ic_money_bill_transfer_solid"
+        android:contentDescription="@string/fillWaterTank"
+        android:text="@string/fillWaterTank"
+        app:icon="@drawable/baseline_format_color_fill_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TV_SaldoDig" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_MenuControlParental"
+        android:id="@+id/btn_Statistics"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,27 +30,27 @@
 
 
         android:layout_marginTop="12dp"
-        android:contentDescription="@string/control_parental"
-        android:text="@string/control_parental"
-        app:icon="@drawable/ic_round_supervisor_account_24"
+        android:contentDescription="@string/statistics"
+        android:text="@string/statistics"
+        app:icon="@drawable/baseline_query_stats_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_MenuMovimientos" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_FillWaterTank" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_Divisas"
+        android:id="@+id/btn_Settigs"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
 
         android:layout_marginTop="12dp"
-        android:contentDescription="@string/cambio_de_divisas"
-        android:text="@string/cambio_de_divisas"
-        app:icon="@drawable/ic_round_currency_exchange_24"
+        android:contentDescription="@string/configuracion"
+        android:text="@string/configuracion"
+        app:icon="@drawable/baseline_settings_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_MenuControlParental" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_Statistics" />
 
 
     <TextView
@@ -112,23 +112,23 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_ahorros"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginStart="16dp"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
 
         android:layout_marginBottom="36dp"
-        android:contentDescription="@string/register"
-        android:text="@string/ahorros"
-        app:icon="@drawable/ic_round_savings_black_48"
+        android:contentDescription="@string/notifications"
+        android:text="@string/notifications"
+        app:icon="@drawable/baseline_notifications_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_perfil"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
