@@ -38,30 +38,6 @@
         android:alpha="0.5"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_Quantity"
-
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/cantidad"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:layout_width="300dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_Quantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_Capacity"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -72,7 +48,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         android:layout_width="300dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_Quantity"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         android:hint="@string/capacidad"
 
         >
@@ -135,7 +111,7 @@
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_addWaterTank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

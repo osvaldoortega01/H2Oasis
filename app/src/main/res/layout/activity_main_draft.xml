@@ -14,12 +14,12 @@
         android:layout_gravity="bottom|end"
         android:layout_marginTop="24dp"
 
-        android:contentDescription="@string/fillWaterTank"
-        android:text="@string/fillWaterTank"
+        android:contentDescription="@string/waterTanks"
+        android:text="@string/waterTanks"
         app:icon="@drawable/baseline_format_color_fill_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TV_SaldoDig" />
+        app:layout_constraintTop_toBottomOf="@+id/TV_Username" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_Statistics"
@@ -60,20 +60,20 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="22dp"
         android:layout_marginEnd="32dp"
-        android:text="@string/su_saldo_actual_es"
+        android:text="@string/bienvenido"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_LogoApp" />
 
     <TextView
-        android:id="@+id/TV_SaldoDig"
+        android:id="@+id/TV_Username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="144dp"
-        android:text="@string/_340_50"
+        android:text="@string/username"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
