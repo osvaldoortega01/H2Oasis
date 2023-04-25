@@ -31,9 +31,11 @@ class ActivityLogin : AppCompatActivity() {
     }
 
     private fun validateLogin(){
+        // Obtiene los campos rellenados en el Front
         var tiet_Username: TextInputEditText = findViewById(R.id.tiet_Username)
         var tiet_Password: TextInputEditText = findViewById(R.id.tiet_Password)
 
+        // Comprueba que los campos no estén vacíos
         if (TextUtils.isEmpty(tiet_Username.text)) {
             tiet_Username.setError("El nombre de usuario es requerido")
         }
@@ -42,31 +44,33 @@ class ActivityLogin : AppCompatActivity() {
         }
         else {
             try{
-                val usuario: PreparedStatement = sQLConnection.dbConn()?.prepareStatement("SELECT contrasena FROM usuarios WHERE usuario = ?")!!
+                // Obtiene la contraseña de la tabla Usuarios
+                val usuario: PreparedStatement = sQLConnection.
+                            dbConn()?.
+                            prepareStatement("SELECT contrasena FROM usuarios WHERE usuario = ?")!!
                 usuario.setString(1, tiet_Username.text.toString())
-                val contrasena: ResultSet = usuario.executeQuery()
+                var contrasena: ResultSet = usuario.executeQuery()
                 contrasena.next()
+
+                // Si la contraseña de la BD y la ingresada son iguales entonces continúa
                 if (tiet_Password.text.toString() == contrasena.getString(1)){
                     Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show()
                     try{
-                        val getidusuario: PreparedStatement = sQLConnection.dbConn()?.prepareStatement("SELECT idUsuario FROM usuarios WHERE usuario = ?")!!
+                        // Obtiene el idUsuario en sesión y lo registra en prefs para tenerlo global
+                        val getidusuario: PreparedStatement = sQLConnection.
+                                dbConn()?.
+                                prepareStatement("SELECT * FROM usuarios WHERE usuario = ?")!!
                         getidusuario.setString(1, tiet_Username.text.toString())
                         val iduser: ResultSet = getidusuario.executeQuery()
                         iduser.next()
-                        fun accessToDetail(){
-                            if(tiet_Username.text.toString().isNotEmpty() && tiet_Password.text.toString().isNotEmpty()){
-                                prefs.saveUsername(tiet_Username.text.toString())
-                                prefs.savePassword(tiet_Password.text.toString())
-                                prefs.saveId(iduser.getString(1))
-                                openMainMenu()
-                            }else{
-
-                            }
-                        }
-                        accessToDetail()
+                        accessToDetail(
+                            tiet_Username.text.toString(),
+                            tiet_Password.text.toString(),
+                            iduser.getString(1),
+                            iduser.getString(2)
+                        )
                     }catch (ex: SQLException){
                         Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
-
                     }
                 }
                 else{
@@ -81,15 +85,29 @@ class ActivityLogin : AppCompatActivity() {
         }
     }
 
-    fun openMainMenu() {
-        var intent = Intent(this, ActivityMainDRAFT::class.java)
-        startActivity(intent)
-    }
-
-    fun checkUserValues(){
+    /**
+     * Permite mantener la sesión iniciada
+     */
+    private fun checkUserValues(){
         if(prefs.getUsername().isNotEmpty()){
             openMainMenu()
         }
+    }
+
+    /**
+     * Guarda las preferencias del usuario para mantenerlas globales
+     */
+    private fun accessToDetail(userName: String, password: String, idUser: String, userLongName: String){
+        prefs.saveUsername(userName)
+        prefs.savePassword(password)
+        prefs.saveId(idUser)
+        prefs.saveUserLongName(userLongName)
+        openMainMenu()
+    }
+
+    private fun openMainMenu() {
+        var intent = Intent(this, ActivityMainMenu::class.java)
+        startActivity(intent)
     }
 
     private fun openRegister(){

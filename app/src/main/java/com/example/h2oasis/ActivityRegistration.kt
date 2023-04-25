@@ -11,7 +11,6 @@ import com.google.android.material.textfield.TextInputEditText
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ActivityRegistration : AppCompatActivity() {
@@ -27,94 +26,159 @@ class ActivityRegistration : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(){
-        val etcompletename: TextInputEditText = findViewById(R.id.tiet_CompleteName)
-        val etusername: TextInputEditText = findViewById(R.id.tiet_Username)
-        val etpassword: TextInputEditText = findViewById(R.id.tiet_Password)
-        val etconfirmpassword: TextInputEditText = findViewById(R.id.tiet_ConfirmPassword)
-        val etemailaddress: TextInputEditText = findViewById(R.id.tiet_EmailAddress)
+    /**
+     * Registra el usuario en la BD, realiza distintas validaciones y
+     * al final inserta el usuario
+     */
+    private fun registerUser() {
+
+        // Obtiene cada campo dentro del
+        val etCompleteName: TextInputEditText = findViewById(R.id.tiet_CompleteName)
+        val etUsername: TextInputEditText = findViewById(R.id.tiet_Username)
+        val etPassword: TextInputEditText = findViewById(R.id.tiet_Password)
+        val etConfirmPassword: TextInputEditText = findViewById(R.id.tiet_ConfirmPassword)
+        val etEmailAddress: TextInputEditText = findViewById(R.id.tiet_EmailAddress)
         val fecha = LocalDateTime.now()
 
-        val pas1 = etpassword.text.toString()
-        val cpas1 = etconfirmpassword.text.toString()
-        try {
-            // Se encapsula todos los peticiones SQL con un try catch, para que no crasheé la app
-            val norepeatuser: PreparedStatement = sqlConnection.dbConn()?.prepareStatement("SELECT idUsuario FROM usuarios WHERE usuario = ?")!!
-            norepeatuser.setString(1, etusername.text.toString())
-            val verifuser: ResultSet = norepeatuser.executeQuery()
+        val pas1 = etPassword.text.toString()
+        val cpas1 = etConfirmPassword.text.toString()
 
-            if(!verifuser.next() ){
-                if (pas1==cpas1){
-                    if (TextUtils.isEmpty(etusername.text))
-                    {
-                        etusername.setError("El nombre de usuario es requerido")
-                    }
-                    else if(TextUtils.isEmpty(etcompletename.text))
-                    {
-                        etcompletename.setError("El nombre completo es requerido")
-                    }
-                    else if (TextUtils.isEmpty(etpassword.text))
-                    {
-                        etpassword.setError("La contraseña es requerida")
-                    }
-                    else if (TextUtils.isEmpty(etemailaddress.text))
-                    {
-                        etemailaddress.setError("El correo es requerido")
+        try {
+            if (areFieldsNotEmpty(etUsername, etCompleteName, etPassword, etEmailAddress)) {
+                if (arePasswordsMatching(pas1, cpas1)) {
+                    if (isUserValid(etUsername)){
+                        createNewUser(etCompleteName, etUsername, etPassword, etEmailAddress, fecha)
+                        loginUser(etUsername, etPassword)
                     }
                     else {
-
-                        try {
-                            val nuevoUsuario: PreparedStatement = sqlConnection.dbConn()
-                                ?.prepareStatement("INSERT INTO usuarios values (?,?,?,?,?)")!!
-                            nuevoUsuario.setString(1, etcompletename.text.toString())
-                            nuevoUsuario.setString(2, etusername.text.toString())
-                            nuevoUsuario.setString(3, etpassword.text.toString())
-                            nuevoUsuario.setString(4, etemailaddress.text.toString())
-                            nuevoUsuario.setString(5, fecha.toString())
-                            nuevoUsuario.executeUpdate()
-                            Toast.makeText(this, "Cuenta Creada Existosamente", Toast.LENGTH_SHORT)
-                                .show()
-                            try {
-                                val getidusuario: PreparedStatement = sqlConnection.dbConn()
-                                    ?.prepareStatement("SELECT idUsuario FROM usuarios WHERE usuario = ?")!!
-                                getidusuario.setString(1, etusername.text.toString())
-                                val iduser: ResultSet = getidusuario.executeQuery()
-                                iduser.next()
-                                fun accessToDetail() {
-                                    if (etusername.text.toString()
-                                            .isNotEmpty() && etpassword.text.toString().isNotEmpty()
-                                    ) {
-                                        prefs.saveUsername(etpassword.text.toString())
-                                        prefs.savePassword(etusername.text.toString())
-                                        prefs.saveId(iduser.getString(1))
-                                        openMainMenu()
-                                    } else {
-
-                                    }
-                                }
-                                accessToDetail()
-                            } catch (ex: SQLException) {
-                                Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
-                            }
-                        } catch (ex: SQLException) {
-                            Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
-                        }
+                        showToast("El usuario ya existe")
                     }
-                }else{
-                    Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show()
+                } else {
+                    showToast("Las contraseñas no coinciden")
                 }
-            }else{
-                Toast.makeText(this, "El usuario ya existe", Toast.LENGTH_LONG).show()
             }
-
-        }
-        catch (ex: SQLException) {
-            Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
+        } catch (ex: SQLException) {
+            showToast(ex.message)
         }
     }
 
+    /**
+     * Comprueba que el nombre de usuario que se está intentando agregar
+     * no exista dentro de la BD
+     */
+    private fun isUserValid(etUsername: TextInputEditText): Boolean {
+        val noRepeatUser: PreparedStatement = sqlConnection.dbConn()?.prepareStatement("SELECT idUsuario FROM usuarios WHERE usuario = ?")!!
+        noRepeatUser.setString(1, etUsername.text.toString())
+        val verifUser: ResultSet = noRepeatUser.executeQuery()
+        return !verifUser.next()
+    }
+
+    /**
+     * Comprueba que las contraseñas sean correctas
+     */
+    private fun arePasswordsMatching(password: String, confirmPassword: String): Boolean {
+        return password == confirmPassword
+    }
+
+    /**
+     * Comprueba que los campos no estén vacíos para continuar con la función
+     */
+    private fun areFieldsNotEmpty(vararg fields: TextInputEditText): Boolean {
+        val errorMessages = listOf(
+            "El nombre de usuario es requerido",
+            "El nombre completo es requerido",
+            "La contraseña es requerida",
+            "El correo es requerido")
+
+        fields.forEachIndexed { index, field ->
+            if (TextUtils.isEmpty(field.text)) {
+                field.error = errorMessages[index]
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * Registra un usuario en la BD, obteniendo los campos necesarios
+     * dentro del Front
+     */
+    private fun createNewUser(etCompleteName: TextInputEditText,
+                              etUsername: TextInputEditText,
+                              etPassword: TextInputEditText,
+                              etEmailAddress: TextInputEditText,
+                              fecha: LocalDateTime) {
+        try {
+            val nuevoUsuario: PreparedStatement = sqlConnection.dbConn()
+                ?.prepareStatement("INSERT INTO usuarios values (?,?,?,?,?)")!!
+            nuevoUsuario.setString(1, etCompleteName.text.toString())
+            nuevoUsuario.setString(2, etUsername.text.toString())
+            nuevoUsuario.setString(3, etPassword.text.toString())
+            nuevoUsuario.setString(4, etEmailAddress.text.toString())
+            nuevoUsuario.setString(5, fecha.toString())
+            nuevoUsuario.executeUpdate()
+            showToast("Cuenta Creada Exitosamente")
+        } catch (ex: SQLException) {
+            showToast(ex.message)
+        }
+    }
+
+    /**
+     * Se encarga de logear al usuario, guardando las prefs
+     */
+    private fun loginUser(etUsername: TextInputEditText, etPassword: TextInputEditText) {
+        try {
+            val getIdUsuario: PreparedStatement = sqlConnection.dbConn()
+                ?.prepareStatement("SELECT usuario FROM usuarios WHERE usuario = ?")!!
+            getIdUsuario.setString(1, etUsername.text.toString())
+            val idUser: ResultSet = getIdUsuario.executeQuery()
+            idUser.next()
+            accessToDetail(etUsername, etPassword, idUser.getString(1), idUser.getString(2))
+        } catch (ex: SQLException) {
+            showToast(ex.message)
+        }
+    }
+
+    /**
+     * Comprueba que las nombre de Usuario y Contraseña no estén vacìas para continuar
+     * guardando las credenciales en las preferencias de la app usando el método de saveUserCredentials()
+     */
+    private fun accessToDetail(etUsername: TextInputEditText,
+                               etPassword: TextInputEditText,
+                               idUser: String,
+                               etUserLongName: String) {
+        if (etUsername.text.toString().isNotEmpty() && etPassword.text.toString().isNotEmpty()) {
+            saveUserCredentials(etPassword, etUsername, idUser, etUserLongName)
+            openMainMenu()
+        }
+    }
+
+    /**
+     * Almacena las credenciales dentro de las preferencias de la app
+     */
+
+    private fun saveUserCredentials(etPassword: TextInputEditText,
+                                    etUsername: TextInputEditText,
+                                    idUser: String,
+                                    etUserLongName: String) {
+        prefs.saveUsername(etPassword.text.toString())
+        prefs.savePassword(etUsername.text.toString())
+        prefs.saveId(idUser)
+        prefs.saveUserLongName(etUserLongName)
+    }
+
+    /**
+     * Abre un mensaje Toast con el parámetro indicado
+     */
+    private fun showToast(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    /**
+     * Abre la actividad del Menú Principal
+     */
     fun openMainMenu() {
-        var intent = Intent(this, ActivityMainDRAFT::class.java)
+        var intent = Intent(this, ActivityMainMenu::class.java)
         startActivity(intent)
     }
 

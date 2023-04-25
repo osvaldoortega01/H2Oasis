@@ -18,10 +18,10 @@
             android:name=".ActivityCisternas"
             android:exported="false" />
         <activity
-            android:name=".ActivityAgregarCisterna"
+            android:name=".ActivityFormularioCisterna"
             android:exported="false" />
         <activity
-            android:name=".ActivityMainDRAFT"
+            android:name=".ActivityMainMenu"
             android:exported="false" />
         <activity
             android:name=".ActivityRegistration"
@@ -29,7 +29,7 @@
         <activity
             android:name=".ActivityLogin"
             android:exported="true"
-            android:label="Login"
+            android:label="H2Oasis"
             android:theme="@style/Theme.H2Oasis">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

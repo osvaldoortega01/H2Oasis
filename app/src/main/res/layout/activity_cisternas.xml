@@ -7,14 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".ActivityCisternas">
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="-80dp"
+        android:alpha="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_circle_24" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="-100dp"
+        android:layout_marginTop="-20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_circle_24"
+        android:alpha="0.5"/>
+
     <!--on below line we are creating a grid view-->
     <GridView
         android:id="@+id/idGRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="1"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="56dp"
         android:horizontalSpacing="6dp"
-        android:verticalSpacing="6dp" />
+        android:numColumns="2"
+        android:verticalSpacing="6dp"
+        />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_addWaterTank"
@@ -31,5 +54,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginEnd="140dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Cisternas" />
 
 </RelativeLayout>

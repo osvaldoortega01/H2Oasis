@@ -1,15 +1,16 @@
 package com.example.h2oasis
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.GridView
 import android.widget.Toast
 import com.example.h2oasis.H2Oasis.Companion.prefs
+import com.example.h2oasis.Model.Cisterna
 import com.gtappdevelopers.kotlingfgproject.GridRVAdapter
 import java.sql.PreparedStatement
-import java.sql.SQLException
 
 class ActivityCisternas : AppCompatActivity() {
 
@@ -23,6 +24,9 @@ class ActivityCisternas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cisternas)
 
+        val btn_addCisternas: Button = findViewById(R.id.btn_addWaterTank)
+        btn_addCisternas.setOnClickListener{ openAddWaterTank(null) }
+
         // initializing variables of grid view with their ids.
         courseGRV = findViewById(R.id.idGRV)
         courseList = ArrayList<GridViewModalWaterTank>()
@@ -31,8 +35,6 @@ class ActivityCisternas : AppCompatActivity() {
         // our course list with image and course name.
 
         createWaterTankList()
-
-
 
         // on below line we are initializing our course adapter
         // and passing course list and context.
@@ -46,8 +48,10 @@ class ActivityCisternas : AppCompatActivity() {
         courseGRV.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             // inside on click method we are simply displaying
             // a toast message with course name.
+
+            openAddWaterTank(courseList[position].courseId)
             Toast.makeText(
-                applicationContext, courseList[position].courseName + " selected",
+                applicationContext, courseList[position].courseId.toString() + " selected",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -55,16 +59,20 @@ class ActivityCisternas : AppCompatActivity() {
 
     private fun createWaterTankList() {
         try {
+
+            // Obtiene una lista de las Cisternas registradas con el idUsuario
             val sqlGetWaterTanks: PreparedStatement =
                 sqlConnection.dbConn()
                     ?.prepareStatement(
-                        "SELECT c.*\n" +
+                        "SELECT DISTINCT c.*\n" +
                                 "FROM cisternas c\n" +
                                 "INNER JOIN usuarioCisterna uc ON c.idCisterna = uc.idCisterna\n" +
                                 "INNER JOIN usuarios u ON uc.idUsuario = u.idUsuario\n" +
                                 "WHERE u.idUsuario = ?;")!!
             sqlGetWaterTanks.setString(1, prefs.getId())
             val waterTankList = sqlGetWaterTanks.executeQuery()
+
+            // Genera una lista del modelo Cisterna con los registros obtenidos
             val cisternas = ArrayList<Cisterna>()
             while (waterTankList.next()){
                 var cisterna = Cisterna(
@@ -77,13 +85,20 @@ class ActivityCisternas : AppCompatActivity() {
                 cisternas.add(cisterna)
             }
 
+            // Inyecta cada registro de las cisternas dentro del DataGridView
             for(cisterna in cisternas){
-                courseList = courseList + GridViewModalWaterTank(cisterna.nombreCorto, R.drawable.baseline_circle_24)
+                courseList = courseList + GridViewModalWaterTank(cisterna.idCisterna, cisterna.nombreCorto, R.drawable.baseline_circle_24)
             }
         }
         catch (ex: java.lang.Exception){
             Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
         }
 
+    }
+
+    private fun openAddWaterTank(idWaterTank: Int?){
+        var intent = Intent(this, ActivityFormularioCisterna::class.java)
+        intent.putExtra("idCisterna", idWaterTank)
+        startActivity(intent)
     }
 }

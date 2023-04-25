@@ -8,6 +8,7 @@ class Prefs(val context: Context) {
     val SHAREDUSER = "username"
     val SHAREDID = "id"
     val SHAREDPASSWORD = "password"
+    val SHAREDUSERLONGNAME = "userLongName"
 
     val storage = context.getSharedPreferences(SHAREDNAME, 0)
 
@@ -17,6 +18,9 @@ class Prefs(val context: Context) {
     fun savePassword(password:String){
         storage.edit().putString(SHAREDPASSWORD, password).apply()
     }
+    fun saveUserLongName(userLongName: String){
+        storage.edit().putString(SHAREDUSERLONGNAME, userLongName).apply()
+    }
     fun saveId(id:String){
         storage.edit().putString(SHAREDID, id).apply()
     }
@@ -25,6 +29,9 @@ class Prefs(val context: Context) {
     }
     fun getPassword():String{
         return storage.getString(SHAREDPASSWORD, "")!!
+    }
+    fun getUserLongName(): String{
+        return storage.getString(SHAREDUSERLONGNAME, "")!!
     }
     fun getId():String{
         return storage.getString(SHAREDID, "")!!
