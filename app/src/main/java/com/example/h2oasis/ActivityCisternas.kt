@@ -1,14 +1,13 @@
 package com.example.h2oasis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.GridView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.h2oasis.H2Oasis.Companion.prefs
-import com.example.h2oasis.Model.Cisterna
 import com.gtappdevelopers.kotlingfgproject.GridRVAdapter
 import java.sql.PreparedStatement
 
