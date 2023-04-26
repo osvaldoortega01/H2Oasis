@@ -92,4 +92,11 @@
     <string name="addWaterTank">Agregar Cisterna</string>
     <string name="bienvenido">Bienvenido</string>
     <string name="waterTanks">Cisternas</string>
+    <string name="user_profile">Perfil</string>
+    <string name="edit_profile">Editar Usuario</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="save_changes">Guardar cambios</string>
+    <string name="cancel">Cancelar</string>
+    <string name="registration_date">Fecha de registro:</string>
+    <string name="change_Password"><u>Cambiar contraseña</u></string>
 </resources>

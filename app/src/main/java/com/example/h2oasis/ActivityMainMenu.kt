@@ -14,10 +14,13 @@ class ActivityMainMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
-
-        val btn_cisternas: Button = findViewById(R.id.btn_FillWaterTank)
         changeUsername()
+        val btn_cisternas: Button = findViewById(R.id.btn_FillWaterTank)
         btn_cisternas.setOnClickListener{ openCisternas() }
+
+
+        val btn_perfil: Button = findViewById(R.id.btn_perfil)
+        btn_perfil.setOnClickListener{ openPerfil() }
     }
 
     /**
@@ -25,6 +28,14 @@ class ActivityMainMenu : AppCompatActivity() {
      */
     private fun openCisternas(){
         var intent = Intent(this, ActivityCisternas::class.java)
+        startActivity(intent)
+    }
+
+    /**
+     * Abre la actividad de Perfil
+     */
+    private fun openPerfil(){
+        var intent = Intent(this, ActivityUserProfile::class.java)
         startActivity(intent)
     }
 

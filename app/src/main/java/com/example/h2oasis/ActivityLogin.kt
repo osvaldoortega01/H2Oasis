@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import com.example.h2oasis.H2Oasis.Companion.prefs
+import com.example.h2oasis.Models.Usuario
 import com.google.android.material.textfield.TextInputEditText
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -30,66 +31,86 @@ class ActivityLogin : AppCompatActivity() {
         // checkUserValues()
     }
 
-    private fun validateLogin(){
-        // Obtiene los campos rellenados en el Front
-        var tiet_Username: TextInputEditText = findViewById(R.id.tiet_Username)
-        var tiet_Password: TextInputEditText = findViewById(R.id.tiet_Password)
+    /**
+     * Validates user input and attempts to log in if input is valid.
+     */
+    private fun validateLogin() {
+        val tietUsername: TextInputEditText = findViewById(R.id.tiet_Username)
+        val tietPassword: TextInputEditText = findViewById(R.id.tiet_Password)
 
-        // Comprueba que los campos no estén vacíos
-        if (TextUtils.isEmpty(tiet_Username.text)) {
-            tiet_Username.setError("El nombre de usuario es requerido")
-        }
-        else if (TextUtils.isEmpty(tiet_Password.text)){
-            tiet_Password.setError("La contraseña es requerida")
-        }
-        else {
-            try{
-                // Obtiene la contraseña de la tabla Usuarios
-                val usuario: PreparedStatement = sQLConnection.
-                            dbConn()?.
-                            prepareStatement("SELECT contrasena FROM usuarios WHERE usuario = ?")!!
-                usuario.setString(1, tiet_Username.text.toString())
-                var contrasena: ResultSet = usuario.executeQuery()
-                contrasena.next()
+        if (isInputValid(tietUsername, tietPassword)) {
+            val username = tietUsername.text.toString()
+            val password = tietPassword.text.toString()
 
-                // Si la contraseña de la BD y la ingresada son iguales entonces continúa
-                if (tiet_Password.text.toString() == contrasena.getString(1)){
-                    Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show()
-                    try{
-                        // Obtiene el idUsuario en sesión y lo registra en prefs para tenerlo global
-                        val getidusuario: PreparedStatement = sQLConnection.
-                                dbConn()?.
-                                prepareStatement("SELECT * FROM usuarios WHERE usuario = ?")!!
-                        getidusuario.setString(1, tiet_Username.text.toString())
-                        val iduser: ResultSet = getidusuario.executeQuery()
-                        iduser.next()
-                        accessToDetail(
-                            tiet_Username.text.toString(),
-                            tiet_Password.text.toString(),
-                            iduser.getString(1),
-                            iduser.getString(2)
-                        )
-                    }catch (ex: SQLException){
-                        Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
-                    }
-                }
-                else{
-                    Toast.makeText(this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show()
-                }
+            val user = getUserByUsername(username)
+
+            if (user != null && password == user.password) {
+                Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show()
+                accessToDetail(username, password, user.id, user.completeName)
+            } else {
+                Toast.makeText(this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show()
             }
-            catch (ex: SQLException){
-                Toast.makeText(this, "${ex.message}", Toast.LENGTH_SHORT).show()
-                Log.d("Error", ex.message.toString())
-            }
-
         }
+    }
+
+    /**
+     * Checks if the input fields are not empty and sets error messages if needed.
+     * @param tietUsername The username input field.
+     * @param tietPassword The password input field.
+     * @return true if both fields are not empty, false otherwise.
+     */
+    private fun isInputValid(tietUsername: TextInputEditText, tietPassword: TextInputEditText): Boolean {
+        var isValid = true
+
+        if (TextUtils.isEmpty(tietUsername.text)) {
+            tietUsername.setError("El nombre de usuario es requerido")
+            isValid = false
+        }
+        if (TextUtils.isEmpty(tietPassword.text)) {
+            tietPassword.setError("La contraseña es requerida")
+            isValid = false
+        }
+
+        return isValid
+    }
+
+    /**
+     * Retrieves user information from the database by username.
+     * @param username The username to search for.
+     * @return a Usuario object containing user data if found, null otherwise.
+     */
+    private fun getUserByUsername(username: String): Usuario? {
+        var user: Usuario? = null
+
+        try {
+            val getUser: PreparedStatement = sQLConnection
+                .dbConn()
+                ?.prepareStatement("SELECT * FROM usuarios WHERE usuario = ?")!!
+            getUser.setString(1, username)
+            val resultSet: ResultSet = getUser.executeQuery()
+
+            if (resultSet.next()) {
+                user = Usuario(
+                    id = resultSet.getString(1),
+                    completeName = resultSet.getString(2),
+                    username = resultSet.getString(3),
+                    password = resultSet.getString(4),
+                    emailAddress = resultSet.getString(5),
+                    registrationDate = resultSet.getString(6)
+                )
+            }
+        } catch (ex: SQLException) {
+            Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
+        }
+
+        return user
     }
 
     /**
      * Permite mantener la sesión iniciada
      */
     private fun checkUserValues(){
-        if(prefs.getUsername().isNotEmpty()){
+        if(prefs.getId().isNotEmpty()){
             openMainMenu()
         }
     }

@@ -9,10 +9,14 @@ import java.sql.SQLException
 
 class SQLConnection {
     private val ip="h2oasis.database.windows.net"
+    // private val ip = "192.168.1.23"
     private val port="1433"
     private val db="db_h2oasis"
     private val username="h2oasis@h2oasis"
+    // private val username= "test"
+
     private val password="diGuI7Gir77#"
+    //private val password = "123"
 
     fun dbConn(): Connection? {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -21,10 +25,10 @@ class SQLConnection {
         val connString : String
         try{
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance()
-            connString = "jdbc:jtds:sqlserver://" + ip + ":"+port+"/"+db+";"+
-
+            connString = "jdbc:jtds:sqlserver://" + ip + ":"+port+"/"+db+";" +
+                    // Si deseas hacer una conexión local debes de comentar el siguiente connString
             "encrypt=true;trustServerCertificate=false;loginTimeout=30;ssl=request;"
-            // "encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
+
             conn = DriverManager.getConnection(connString, username, password)
         } catch (ex: SQLException){
             Log.e("Error: ", ex.message!!)

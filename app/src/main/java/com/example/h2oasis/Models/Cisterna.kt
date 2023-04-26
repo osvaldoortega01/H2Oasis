@@ -1,4 +1,4 @@
-package com.example.h2oasis
+package com.example.h2oasis.Models
 
 data class Cisterna(
     val idCisterna: Int,

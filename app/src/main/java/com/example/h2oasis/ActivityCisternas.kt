@@ -8,6 +8,7 @@ import android.widget.GridView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.h2oasis.H2Oasis.Companion.prefs
+import com.example.h2oasis.Models.Cisterna
 import com.gtappdevelopers.kotlingfgproject.GridRVAdapter
 import java.sql.PreparedStatement
 

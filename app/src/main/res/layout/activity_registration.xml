@@ -16,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorSecondary"
         app:srcCompat="@drawable/user_plus_solid"/>
 <!--        app:tint="@color/md_theme_light_tertiary" />-->
 
@@ -143,5 +144,6 @@
         android:layout_marginBottom="40dp"
         android:contentDescription="@string/register"
         android:text="@string/register"
-        app:icon="@drawable/ic_round_how_to_reg_24"/>
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
+        app:icon="@drawable/ic_round_how_to_reg_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>
