@@ -110,12 +110,13 @@ class ActivityRegistration : AppCompatActivity() {
                               fecha: LocalDateTime) {
         try {
             val nuevoUsuario: PreparedStatement = sqlConnection.dbConn()
-                ?.prepareStatement("INSERT INTO usuarios values (?,?,?,?,?)")!!
+                ?.prepareStatement("INSERT INTO usuarios values (?,?,?,?,?, ?)")!!
             nuevoUsuario.setString(1, etCompleteName.text.toString())
             nuevoUsuario.setString(2, etUsername.text.toString())
             nuevoUsuario.setString(3, etPassword.text.toString())
             nuevoUsuario.setString(4, etEmailAddress.text.toString())
             nuevoUsuario.setString(5, fecha.toString())
+            nuevoUsuario.setBoolean(6, true)
             nuevoUsuario.executeUpdate()
             showToast("Cuenta Creada Exitosamente")
         } catch (ex: SQLException) {
@@ -129,7 +130,7 @@ class ActivityRegistration : AppCompatActivity() {
     private fun loginUser(etUsername: TextInputEditText, etPassword: TextInputEditText) {
         try {
             val getIdUsuario: PreparedStatement = sqlConnection.dbConn()
-                ?.prepareStatement("SELECT usuario FROM usuarios WHERE usuario = ?")!!
+                ?.prepareStatement("SELECT * FROM usuarios WHERE usuario = ? AND habilitado = 1")!!
             getIdUsuario.setString(1, etUsername.text.toString())
             val idUser: ResultSet = getIdUsuario.executeQuery()
             idUser.next()

@@ -9,5 +9,6 @@ data class Usuario(
     val username: String,
     val password: String,
     val emailAddress: String,
-    val registrationDate: String
+    val registrationDate: String,
+    val enabled: Boolean
 )

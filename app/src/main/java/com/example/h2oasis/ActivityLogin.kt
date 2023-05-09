@@ -85,7 +85,7 @@ class ActivityLogin : AppCompatActivity() {
         try {
             val getUser: PreparedStatement = sQLConnection
                 .dbConn()
-                ?.prepareStatement("SELECT * FROM usuarios WHERE usuario = ?")!!
+                ?.prepareStatement("SELECT * FROM usuarios WHERE habilitado = 1 AND usuario = ?")!!
             getUser.setString(1, username)
             val resultSet: ResultSet = getUser.executeQuery()
 
@@ -96,7 +96,8 @@ class ActivityLogin : AppCompatActivity() {
                     username = resultSet.getString(3),
                     password = resultSet.getString(4),
                     emailAddress = resultSet.getString(5),
-                    registrationDate = resultSet.getString(6)
+                    registrationDate = resultSet.getString(6),
+                    enabled = resultSet.getBoolean(7)
                 )
             }
         } catch (ex: SQLException) {
