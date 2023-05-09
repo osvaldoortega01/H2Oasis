@@ -100,4 +100,5 @@
     <string name="registration_date">Fecha de registro:</string>
     <string name="change_Password"><u>Cambiar contraseña</u></string>
     <string name="need_Password">Para confirmar los cambios, digite de nuevo su contraseña:</string>
+    <string name="delete">Eliminar</string>
 </resources>

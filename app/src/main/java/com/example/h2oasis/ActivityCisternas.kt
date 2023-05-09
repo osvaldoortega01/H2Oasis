@@ -1,5 +1,7 @@
 package com.example.h2oasis
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
@@ -11,6 +13,8 @@ import com.example.h2oasis.H2Oasis.Companion.prefs
 import com.example.h2oasis.Models.Cisterna
 import com.gtappdevelopers.kotlingfgproject.GridRVAdapter
 import java.sql.PreparedStatement
+import java.sql.SQLException
+
 
 class ActivityCisternas : AppCompatActivity() {
 
@@ -51,9 +55,18 @@ class ActivityCisternas : AppCompatActivity() {
 
             openAddWaterTank(courseList[position].courseId)
             Toast.makeText(
-                applicationContext, courseList[position].courseId.toString() + " selected",
+                applicationContext, courseList[position].courseName+ " seleccionada",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+
+        courseGRV.onItemLongClickListener = AdapterView.OnItemLongClickListener{ _, _, position, _ ->
+            showConfirmation(courseList[position].courseId)
+//            Toast.makeText(
+//                applicationContext, courseList[position].courseId.toString() + " deleted",
+//                Toast.LENGTH_SHORT
+//            ).show()
+            true
         }
     }
 
@@ -68,7 +81,7 @@ class ActivityCisternas : AppCompatActivity() {
                                 "FROM cisternas c\n" +
                                 "INNER JOIN usuarioCisterna uc ON c.idCisterna = uc.idCisterna\n" +
                                 "INNER JOIN usuarios u ON uc.idUsuario = u.idUsuario\n" +
-                                "WHERE u.idUsuario = ?;")!!
+                                "WHERE u.idUsuario = ? AND c.habilitado = 1;")!!
             sqlGetWaterTanks.setString(1, prefs.getId())
             val waterTankList = sqlGetWaterTanks.executeQuery()
 
@@ -80,14 +93,15 @@ class ActivityCisternas : AppCompatActivity() {
                     waterTankList.getString(2),
                     waterTankList.getString(3).toInt(),
                     waterTankList.getString(4),
-                    waterTankList.getString(5)
+                    waterTankList.getString(5),
+                    waterTankList.getBoolean(6)
                 )
                 cisternas.add(cisterna)
             }
 
             // Inyecta cada registro de las cisternas dentro del DataGridView
             for(cisterna in cisternas){
-                courseList = courseList + GridViewModalWaterTank(cisterna.idCisterna, cisterna.nombreCorto, R.drawable.baseline_circle_24)
+                courseList = courseList + GridViewModalWaterTank(cisterna.idCisterna, cisterna.nombreCorto, R.drawable.baseline_water_drop_24)
             }
         }
         catch (ex: java.lang.Exception){
@@ -99,6 +113,45 @@ class ActivityCisternas : AppCompatActivity() {
     private fun openAddWaterTank(idWaterTank: Int?){
         var intent = Intent(this, ActivityFormularioCisterna::class.java)
         intent.putExtra("idCisterna", idWaterTank)
+        startActivity(intent)
+    }
+
+    private fun deleteWaterTank(idWaterTank: Int){
+        try {
+            val editCisternaSQL: PreparedStatement = sqlConnection.dbConn()
+                ?.prepareStatement("UPDATE cisternas SET habilitado = 0 WHERE idCisterna = ?")!!
+            editCisternaSQL.setInt(1, idWaterTank!!)
+            editCisternaSQL.executeUpdate()
+
+            Toast.makeText(this, "Cisterna eliminada exitosamente", Toast.LENGTH_SHORT).show()
+
+            // Regresa a la pantalla principal
+            openCisternas()
+        } catch (ex: SQLException) {
+            Toast.makeText(this, ex.message, Toast.LENGTH_SHORT).show()
+        }
+        Toast.makeText(
+            applicationContext, "Cisterna eliminada con éxito",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun showConfirmation(idWaterTank: Int?): Boolean{
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar")
+            .setMessage("¿Realmente quieres eliminar la cisterna?")
+            .setIcon(R.drawable.baseline_delete_24)
+            .setPositiveButton(R.string.delete) { _, _ ->
+                (deleteWaterTank(idWaterTank!!))
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                (deleteWaterTank(idWaterTank!!))
+            }.show()
+        return false
+    }
+
+    private fun openCisternas(){
+        var intent = Intent(this, ActivityCisternas::class.java)
         startActivity(intent)
     }
 }

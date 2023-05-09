@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorSecondary"
+        app:tint="?attr/colorPrimaryContainer"
         app:srcCompat="@drawable/user_plus_solid"/>
 <!--        app:tint="@color/md_theme_light_tertiary" />-->
 

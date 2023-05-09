@@ -5,5 +5,6 @@ data class Cisterna(
     val capacidad: String,
     val idAjuste: Int,
     val nombreCorto: String,
-    val descripcion: String
+    val descripcion: String,
+    val habilitado: Boolean
 )

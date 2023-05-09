@@ -9,14 +9,14 @@ import java.sql.SQLException
 
 class SQLConnection {
     private val ip="h2oasis.database.windows.net"
-    // private val ip = "192.168.1.23"
     private val port="1433"
     private val db="db_h2oasis"
     private val username="h2oasis@h2oasis"
-    // private val username= "test"
-
     private val password="diGuI7Gir77#"
-    //private val password = "123"
+    // En caso de hacer la conexión de manera local, utilizar las siguiente opciones
+    // private val ip = "192.168.1.23"
+    // private val username= "test"
+    // private val password = "123"
 
     fun dbConn(): Connection? {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()

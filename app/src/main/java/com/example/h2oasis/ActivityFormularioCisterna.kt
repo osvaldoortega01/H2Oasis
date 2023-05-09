@@ -3,6 +3,7 @@ package com.example.h2oasis
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.room.Transaction
@@ -36,10 +37,15 @@ class ActivityFormularioCisterna : AppCompatActivity() {
         esEditar = dato != null && dato != 0
 
         val btn_AddWaterTank: ExtendedFloatingActionButton = findViewById(R.id.btn_addWaterTank)
+        val btn_DeleteWaterTank: ExtendedFloatingActionButton = findViewById(R.id.btn_deleteWaterTank)
         if(esEditar){
             loadWaterTank(dato!!)
             btn_AddWaterTank.text = "Editar"
             btn_AddWaterTank.setIconResource(R.drawable.baseline_edit_24)
+            btn_DeleteWaterTank.visibility = View.VISIBLE
+        }
+        btn_DeleteWaterTank.setOnClickListener{
+            deleteWaterTank()
         }
         btn_AddWaterTank.setOnClickListener{
             if(esEditar){
@@ -57,12 +63,13 @@ class ActivityFormularioCisterna : AppCompatActivity() {
         try {
             // Crea un nuevo registro en la tabla Cisternas
             val nuevaCisternaSQL : PreparedStatement = sqlConnection.dbConn()
-                    ?.prepareStatement("INSERT INTO cisternas  VALUES(?,?,?,?)",
+                    ?.prepareStatement("INSERT INTO cisternas  VALUES(?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS)!!
             nuevaCisternaSQL.setString(1, etCapacity.text.toString())
-            nuevaCisternaSQL.setString(2, "1")
+            nuevaCisternaSQL.setInt(2, 1)
             nuevaCisternaSQL.setString(3, etShortName.text.toString())
             nuevaCisternaSQL.setString(4, etDescription.text.toString())
+            nuevaCisternaSQL.setBoolean(5, true)
             nuevaCisternaSQL.executeUpdate()
             // Permite obtener el id de la nueva Cisterna agregada
             var rs: ResultSet = nuevaCisternaSQL.generatedKeys
@@ -84,6 +91,22 @@ class ActivityFormularioCisterna : AppCompatActivity() {
             }
         }
         catch (ex: SQLException){
+            Toast.makeText(this, ex.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun deleteWaterTank(){
+        val idCisterna = intent.extras?.getInt("idCisterna")
+        try {
+            val editCisternaSQL: PreparedStatement = sqlConnection.dbConn()
+                ?.prepareStatement("UPDATE cisternas SET habilitado = 0 WHERE idCisterna = ?")!!
+            editCisternaSQL.setInt(1, idCisterna!!)
+            editCisternaSQL.executeUpdate()
+
+            Toast.makeText(this, "Cisterna eliminada exitosamente", Toast.LENGTH_SHORT).show()
+
+            // Regresa a la pantalla principal
+            openCisternas()
+        } catch (ex: SQLException) {
             Toast.makeText(this, ex.message, Toast.LENGTH_SHORT).show()
         }
     }
