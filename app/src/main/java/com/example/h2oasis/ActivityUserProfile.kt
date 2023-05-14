@@ -1,5 +1,6 @@
 package com.example.h2oasis
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -17,7 +18,7 @@ class ActivityUserProfile : AppCompatActivity() {
     lateinit var tietPassword: TextInputEditText
     lateinit var tietEmailAddress: TextInputEditText
     lateinit var btnSaveChanges: MaterialButton
-    lateinit var btnCancel: MaterialButton
+    lateinit var btnLogOut: MaterialButton
     lateinit var contrasena: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,7 @@ class ActivityUserProfile : AppCompatActivity() {
         tietPassword = findViewById(R.id.tiet_Password)
         tietEmailAddress = findViewById(R.id.tiet_EmailAddress)
         btnSaveChanges = findViewById(R.id.btn_save_changes)
-        btnCancel = findViewById(R.id.btn_cancel)
+        btnLogOut = findViewById(R.id.btn_LogOut)
         var btnChangePassword: TextView = findViewById(R.id.tv_changePassword)
 
         loadUserData()
@@ -39,7 +40,7 @@ class ActivityUserProfile : AppCompatActivity() {
                 saveChanges()
             }
             else{
-                Toast.makeText(this, "Contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -48,8 +49,8 @@ class ActivityUserProfile : AppCompatActivity() {
             openChangePassword()
         }
 
-        btnCancel.setOnClickListener {
-            finish()
+        btnLogOut.setOnClickListener {
+            logOut()
         }
     }
 
@@ -99,6 +100,13 @@ class ActivityUserProfile : AppCompatActivity() {
     }
 
     private fun openChangePassword(){
-        // TODO: To be implemented
+        var intent = Intent(this, ActivityChangePassword::class.java)
+        startActivity(intent)
+    }
+
+    private fun logOut(){
+        prefs.wipe()
+        var intent = Intent(this, ActivityLogin::class.java)
+        startActivity(intent)
     }
 }

@@ -101,4 +101,7 @@
     <string name="change_Password"><u>Cambiar contraseña</u></string>
     <string name="need_Password">Para confirmar los cambios, digite de nuevo su contraseña:</string>
     <string name="delete">Eliminar</string>
+    <string name="newPassword">Contraseña Nueva</string>
+    <string name="actualPassword">Contraseña Actual</string>
+    <string name="confirmNewPassword">Confirmar Contraseña Nueva</string>
 </resources>

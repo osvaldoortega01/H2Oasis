@@ -15,6 +15,9 @@
         android:theme="@style/Theme.H2Oasis"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityChangePassword"
+            android:exported="false" />
+        <activity
             android:name=".ActivityUserProfile"
             android:exported="false" />
         <activity
