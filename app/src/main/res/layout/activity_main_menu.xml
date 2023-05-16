@@ -146,17 +146,45 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_perfil"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="150dp"
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="@+id/iv_perfil"
+        app:layout_constraintEnd_toEndOf="@+id/iv_perfil"
+        app:layout_constraintTop_toTopOf="@+id/iv_perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_perfil"
+        app:srcCompat="@drawable/baseline_circle_24"
+        android:alpha="0.5"/>
+
+    <ImageView
+        android:id="@+id/iv_perfil"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_sharp_account_circle_24"
+        app:tint="?attr/colorPrimarySurface"
+        />
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_LogOut"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
+        android:ems="10"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="36dp"
-        android:contentDescription="@string/register"
-        android:text="@string/perfil"
-        app:icon="@drawable/ic_sharp_account_circle_24"
+        android:text="@string/logout"
+        android:textColor="?attr/colorOnErrorContainer"
+        app:backgroundTint="?attr/colorErrorContainer"
+        app:iconTint="?attr/colorOnErrorContainer"
+        app:icon="@drawable/baseline_logout_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"  />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

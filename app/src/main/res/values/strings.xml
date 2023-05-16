@@ -104,4 +104,5 @@
     <string name="newPassword">Contraseña Nueva</string>
     <string name="actualPassword">Contraseña Actual</string>
     <string name="confirmNewPassword">Confirmar Contraseña Nueva</string>
+    <string name="deleteAccount">Eliminar Cuenta</string>
 </resources>

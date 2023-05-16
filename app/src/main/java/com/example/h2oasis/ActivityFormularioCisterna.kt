@@ -3,6 +3,7 @@ package com.example.h2oasis
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -61,33 +62,38 @@ class ActivityFormularioCisterna : AppCompatActivity() {
     private fun addWaterTank(){
 
         try {
-            // Crea un nuevo registro en la tabla Cisternas
-            val nuevaCisternaSQL : PreparedStatement = sqlConnection.dbConn()
-                    ?.prepareStatement("INSERT INTO cisternas  VALUES(?,?,?,?,?)",
-                    Statement.RETURN_GENERATED_KEYS)!!
-            nuevaCisternaSQL.setString(1, etCapacity.text.toString())
-            nuevaCisternaSQL.setInt(2, 1)
-            nuevaCisternaSQL.setString(3, etShortName.text.toString())
-            nuevaCisternaSQL.setString(4, etDescription.text.toString())
-            nuevaCisternaSQL.setBoolean(5, true)
-            nuevaCisternaSQL.executeUpdate()
-            // Permite obtener el id de la nueva Cisterna agregada
-            var rs: ResultSet = nuevaCisternaSQL.generatedKeys
-            if(rs.next() != null) {
-                // Agrega un nuevo registro en la tabla usuarioCisterna
-                val nuevaCisternaUsuarioSQL: PreparedStatement = sqlConnection.dbConn()
-                    ?.prepareStatement("INSERT INTO usuarioCisterna  VALUES(?,?)")!!
-                // Obtiene el IdUsuario de las prefs registradas
-                nuevaCisternaUsuarioSQL.setString(1, prefs.getId())
-                // Obtiene el IdCisterna obtenido de la ùltima cisterna agregada
-                nuevaCisternaUsuarioSQL.setString(2, rs.getInt(1).toString())
+            if(areFieldsNotEmpty(etCapacity, etShortName, etDescription)) {
+                // Crea un nuevo registro en la tabla Cisternas
+                val nuevaCisternaSQL: PreparedStatement = sqlConnection.dbConn()
+                    ?.prepareStatement(
+                        "INSERT INTO cisternas  VALUES(?,?,?,?,?)",
+                        Statement.RETURN_GENERATED_KEYS
+                    )!!
+                nuevaCisternaSQL.setString(1, etCapacity.text.toString())
+                nuevaCisternaSQL.setInt(2, 1)
+                nuevaCisternaSQL.setString(3, etShortName.text.toString())
+                nuevaCisternaSQL.setString(4, etDescription.text.toString())
+                nuevaCisternaSQL.setBoolean(5, true)
+                nuevaCisternaSQL.executeUpdate()
+                // Permite obtener el id de la nueva Cisterna agregada
+                var rs: ResultSet = nuevaCisternaSQL.generatedKeys
+                if (rs.next() != null) {
+                    // Agrega un nuevo registro en la tabla usuarioCisterna
+                    val nuevaCisternaUsuarioSQL: PreparedStatement = sqlConnection.dbConn()
+                        ?.prepareStatement("INSERT INTO usuarioCisterna  VALUES(?,?)")!!
+                    // Obtiene el IdUsuario de las prefs registradas
+                    nuevaCisternaUsuarioSQL.setString(1, prefs.getId())
+                    // Obtiene el IdCisterna obtenido de la ùltima cisterna agregada
+                    nuevaCisternaUsuarioSQL.setString(2, rs.getInt(1).toString())
 
-                nuevaCisternaUsuarioSQL.executeUpdate()
+                    nuevaCisternaUsuarioSQL.executeUpdate()
 
-                Toast.makeText(this, "Cisterna agregada exitosamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Cisterna agregada exitosamente", Toast.LENGTH_SHORT)
+                        .show()
 
-                // Regresa a la pantalla principal
-                openCisternas()
+                    // Regresa a la pantalla principal
+                    openCisternas()
+                }
             }
         }
         catch (ex: SQLException){
@@ -110,23 +116,44 @@ class ActivityFormularioCisterna : AppCompatActivity() {
             Toast.makeText(this, ex.message, Toast.LENGTH_SHORT).show()
         }
     }
+
+    /**
+     * Comprueba que los campos no estén vacíos para continuar con la función
+     */
+    private fun areFieldsNotEmpty(vararg fields: TextInputEditText): Boolean {
+        val errorMessages = listOf(
+            "La capacidad es requerido",
+            "El nombre corto es requerido")
+
+        fields.forEachIndexed { index, field ->
+            if (TextUtils.isEmpty(field.text)) {
+                field.error = errorMessages[index]
+                return false
+            }
+        }
+        return true
+    }
+
     private fun editWaterTank() {
         val idCisterna = intent.extras?.getInt("idCisterna")
 
         try {
-            val editCisternaSQL: PreparedStatement = sqlConnection.dbConn()
-                ?.prepareStatement("UPDATE cisternas SET capacidad = ?, nombreCorto = ?, descripcion = ? WHERE idCisterna = ?")!!
-            editCisternaSQL.setString(1, etCapacity.text.toString())
-            editCisternaSQL.setString(2, etShortName.text.toString())
-            editCisternaSQL.setString(3, etDescription.text.toString())
-            editCisternaSQL.setInt(4, idCisterna!!)
-            editCisternaSQL.executeUpdate()
+            if (areFieldsNotEmpty(etCapacity, etShortName)) {
+                val editCisternaSQL: PreparedStatement = sqlConnection.dbConn()
+                    ?.prepareStatement("UPDATE cisternas SET capacidad = ?, nombreCorto = ?, descripcion = ? WHERE idCisterna = ?")!!
+                editCisternaSQL.setString(1, etCapacity.text.toString())
+                editCisternaSQL.setString(2, etShortName.text.toString())
+                editCisternaSQL.setString(3, etDescription.text.toString())
+                editCisternaSQL.setInt(4, idCisterna!!)
+                editCisternaSQL.executeUpdate()
 
-            Toast.makeText(this, "Cisterna actualizada exitosamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Cisterna actualizada exitosamente", Toast.LENGTH_SHORT).show()
 
-            // Regresa a la pantalla principal
-            openCisternas()
-        } catch (ex: SQLException) {
+                // Regresa a la pantalla principal
+                openCisternas()
+            }
+        }
+        catch (ex: SQLException) {
             Toast.makeText(this, ex.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -154,6 +181,7 @@ class ActivityFormularioCisterna : AppCompatActivity() {
     private fun openCisternas(){
         var intent = Intent(this, ActivityCisternas::class.java)
         startActivity(intent)
+        finish()
     }
 
 }

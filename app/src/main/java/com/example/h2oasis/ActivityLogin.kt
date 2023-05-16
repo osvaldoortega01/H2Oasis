@@ -1,12 +1,11 @@
 package com.example.h2oasis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.h2oasis.H2Oasis.Companion.prefs
 import com.example.h2oasis.Models.Usuario
 import com.google.android.material.textfield.TextInputEditText
@@ -28,7 +27,7 @@ class ActivityLogin : AppCompatActivity() {
         val registerButton: Button = findViewById(R.id.btn_Register)
         registerButton.setOnClickListener{ openRegister() }
 
-        // checkUserValues()
+        checkUserValues()
     }
 
     /**
@@ -135,5 +134,9 @@ class ActivityLogin : AppCompatActivity() {
     private fun openRegister(){
         var intent = Intent(this, ActivityRegistration::class.java)
         startActivity(intent)
+    }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
     }
 }

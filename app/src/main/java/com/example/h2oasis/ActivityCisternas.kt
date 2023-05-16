@@ -144,8 +144,7 @@ class ActivityCisternas : AppCompatActivity() {
             .setPositiveButton(R.string.delete) { _, _ ->
                 (deleteWaterTank(idWaterTank!!))
             }
-            .setNegativeButton(android.R.string.cancel) { _, _ ->
-                (deleteWaterTank(idWaterTank!!))
+            .setNegativeButton(R.string.cancel) { _, _ ->
             }.show()
         return false
     }
@@ -153,5 +152,6 @@ class ActivityCisternas : AppCompatActivity() {
     private fun openCisternas(){
         var intent = Intent(this, ActivityCisternas::class.java)
         startActivity(intent)
+        finish()
     }
 }

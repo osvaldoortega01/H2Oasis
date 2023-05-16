@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.h2oasis.H2Oasis.Companion.prefs
@@ -19,8 +20,13 @@ class ActivityMainMenu : AppCompatActivity() {
         btn_cisternas.setOnClickListener{ openCisternas() }
 
 
-        val btn_perfil: Button = findViewById(R.id.btn_perfil)
+        val btn_perfil: ImageView = findViewById(R.id.iv_perfil)
         btn_perfil.setOnClickListener{ openPerfil() }
+
+        val btnLogOut: Button = findViewById(R.id.btn_LogOut)
+        btnLogOut.setOnClickListener {
+            logOut()
+        }
     }
 
     /**
@@ -50,5 +56,12 @@ class ActivityMainMenu : AppCompatActivity() {
         }catch(ex: SQLException){
             Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun logOut(){
+        prefs.wipe()
+        var intent = Intent(this, ActivityLogin::class.java)
+        startActivity(intent)
+        finish()
     }
 }
