@@ -27,6 +27,11 @@ class ActivityMainMenu : AppCompatActivity() {
         btnLogOut.setOnClickListener {
             logOut()
         }
+
+        val btnStatistics: Button = findViewById(R.id.btn_Statistics)
+        btnStatistics.setOnClickListener{
+            openEstadisticas()
+        }
     }
 
     /**
@@ -42,6 +47,11 @@ class ActivityMainMenu : AppCompatActivity() {
      */
     private fun openPerfil(){
         var intent = Intent(this, ActivityUserProfile::class.java)
+        startActivity(intent)
+    }
+
+    private fun openEstadisticas(){
+        var intent = Intent(this, ActivityMeasurement::class.java)
         startActivity(intent)
     }
 

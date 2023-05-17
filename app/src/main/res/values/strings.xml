@@ -105,4 +105,10 @@
     <string name="actualPassword">Contraseña Actual</string>
     <string name="confirmNewPassword">Confirmar Contraseña Nueva</string>
     <string name="deleteAccount">Eliminar Cuenta</string>
+
+    <string-array name="filter_time">
+        <item>Diario</item>
+        <item>Semanal</item>
+        <item>Mensual</item>
+    </string-array>
 </resources>
