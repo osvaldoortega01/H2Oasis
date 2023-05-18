@@ -7,4 +7,8 @@ data class Cisterna(
     val nombreCorto: String,
     val descripcion: String,
     val habilitado: Boolean
-)
+){
+    override fun toString(): String {
+        return nombreCorto
+    }
+}

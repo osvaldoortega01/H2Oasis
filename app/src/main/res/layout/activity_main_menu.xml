@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_FillWaterTank" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_Settigs"
+        android:id="@+id/btn_Settings"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_ahorros"
+        android:id="@+id/btn_Notifications"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
