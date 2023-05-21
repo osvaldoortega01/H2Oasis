@@ -75,5 +75,7 @@
     <string name="daily">Diario</string>
     <string name="weekly">Semanal</string>
     <string name="monthly">Mensual</string>
+    <string name="setAsChecked">Marcar como leído</string>
+    <string name="seenNotifications">Notificaciones leídas</string>
 
 </resources>

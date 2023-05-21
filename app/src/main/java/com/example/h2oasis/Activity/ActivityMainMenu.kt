@@ -33,6 +33,11 @@ class ActivityMainMenu : AppCompatActivity() {
         btnStatistics.setOnClickListener{
             openEstadisticas()
         }
+
+        val btnNotifications: Button = findViewById(R.id.btn_Notifications)
+        btnNotifications.setOnClickListener{
+            openNotificaciones()
+        }
     }
 
     /**
@@ -53,6 +58,11 @@ class ActivityMainMenu : AppCompatActivity() {
 
     private fun openEstadisticas(){
         var intent = Intent(this, ActivityMeasurement::class.java)
+        startActivity(intent)
+    }
+
+    private fun openNotificaciones(){
+        var intent = Intent(this, ActivityNotifications::class.java)
         startActivity(intent)
     }
 
