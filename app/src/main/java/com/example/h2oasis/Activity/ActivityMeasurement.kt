@@ -1,4 +1,4 @@
-package com.example.h2oasis
+package com.example.h2oasis.Activity
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.h2oasis.H2Oasis.Companion.prefs
 import com.example.h2oasis.Models.Cisterna
+import com.example.h2oasis.R
+import com.example.h2oasis.SQLConnection
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis

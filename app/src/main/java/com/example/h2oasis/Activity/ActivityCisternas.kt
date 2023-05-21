@@ -1,7 +1,6 @@
-package com.example.h2oasis
+package com.example.h2oasis.Activity
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
@@ -9,8 +8,11 @@ import android.widget.Button
 import android.widget.GridView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.h2oasis.GridViewModalWaterTank
 import com.example.h2oasis.H2Oasis.Companion.prefs
 import com.example.h2oasis.Models.Cisterna
+import com.example.h2oasis.R
+import com.example.h2oasis.SQLConnection
 import com.gtappdevelopers.kotlingfgproject.GridRVAdapter
 import java.sql.PreparedStatement
 import java.sql.SQLException

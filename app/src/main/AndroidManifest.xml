@@ -19,28 +19,28 @@
         android:theme="@style/Theme.H2Oasis"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityMeasurement"
+            android:name=".Activity.ActivityMeasurement"
             android:exported="false" />
         <activity
-            android:name=".ActivityChangePassword"
+            android:name=".Activity.ActivityChangePassword"
             android:exported="false" />
         <activity
-            android:name=".ActivityUserProfile"
+            android:name=".Activity.ActivityUserProfile"
             android:exported="false" />
         <activity
-            android:name=".ActivityCisternas"
+            android:name=".Activity.ActivityCisternas"
             android:exported="false" />
         <activity
-            android:name=".ActivityFormularioCisterna"
+            android:name=".Activity.ActivityFormularioCisterna"
             android:exported="false" />
         <activity
-            android:name=".ActivityMainMenu"
+            android:name=".Activity.ActivityMainMenu"
             android:exported="false" />
         <activity
-            android:name=".ActivityRegistration"
+            android:name=".Activity.ActivityRegistration"
             android:exported="false" />
         <activity
-            android:name=".ActivityLogin"
+            android:name=".Activity.ActivityLogin"
             android:exported="true"
             android:label="H2Oasis"
             android:theme="@style/Theme.H2Oasis">

@@ -1,4 +1,4 @@
-package com.example.h2oasis
+package com.example.h2oasis.Activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.h2oasis.H2Oasis.Companion.prefs
 import com.example.h2oasis.Models.Usuario
+import com.example.h2oasis.R
+import com.example.h2oasis.SQLConnection
 import com.google.android.material.textfield.TextInputEditText
 import java.sql.PreparedStatement
 import java.sql.ResultSet

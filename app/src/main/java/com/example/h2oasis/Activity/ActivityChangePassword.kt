@@ -1,4 +1,4 @@
-package com.example.h2oasis
+package com.example.h2oasis.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,11 +7,11 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.Toast
 import com.example.h2oasis.H2Oasis.Companion.prefs
+import com.example.h2oasis.R
+import com.example.h2oasis.SQLConnection
 import com.google.android.material.textfield.TextInputEditText
 import java.sql.PreparedStatement
-import java.sql.ResultSet
 import java.sql.SQLException
-import java.time.LocalDateTime
 
 class ActivityChangePassword : AppCompatActivity() {
 

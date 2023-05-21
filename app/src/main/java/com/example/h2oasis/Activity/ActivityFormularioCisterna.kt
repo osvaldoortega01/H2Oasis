@@ -1,14 +1,15 @@
-package com.example.h2oasis
+package com.example.h2oasis.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.room.Transaction
 import com.example.h2oasis.H2Oasis.Companion.prefs
+import com.example.h2oasis.R
+import com.example.h2oasis.SQLConnection
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import java.sql.PreparedStatement

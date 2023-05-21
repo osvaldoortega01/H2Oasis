@@ -1,4 +1,4 @@
-package com.example.h2oasis
+package com.example.h2oasis.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.h2oasis.H2Oasis.Companion.prefs
+import com.example.h2oasis.R
 import java.sql.SQLException
 
 class ActivityMainMenu : AppCompatActivity() {
