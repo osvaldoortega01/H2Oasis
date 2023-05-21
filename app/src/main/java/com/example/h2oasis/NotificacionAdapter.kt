@@ -1,6 +1,7 @@
 package com.example.h2oasis
 import android.content.Context
 import android.graphics.Color
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.h2oasis.Activity.ActivityNotifications
 import com.example.h2oasis.Models.Notificacion
 import java.sql.PreparedStatement
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-class NotificacionAdapter(private val context: Context, private val unseenNotifications: List<Notificacion>, private val seenNotifications: List<Notificacion>) : RecyclerView.Adapter<NotificacionAdapter.NotificacionViewHolder>() {
+class NotificacionAdapter(
+    private val context: Context,
+    private val unseenNotifications: List<Notificacion>,
+    private val seenNotifications: List<Notificacion>
+) : RecyclerView.Adapter<NotificacionAdapter.NotificacionViewHolder>() {
 
     private val allNotifications = unseenNotifications + seenNotifications // Unificar las dos listas en una sola
     private var  sqlConnection = SQLConnection()
@@ -22,6 +28,7 @@ class NotificacionAdapter(private val context: Context, private val unseenNotifi
     inner class NotificacionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val encabezado: TextView = itemView.findViewById(R.id.tv_encabezado)
         val mensaje: TextView = itemView.findViewById(R.id.tv_mensaje)
+        val nombreCortoCisterna: TextView = itemView.findViewById(R.id.tv_nombreCisterna)
         val fechaHora: TextView = itemView.findViewById(R.id.tv_fecha_hora)
         val imgCheck: ImageView = itemView.findViewById(R.id.imgCheck)
         val layoutCard: CardView = itemView.findViewById(R.id.card_layout) // Agrega el layout principal del CardView
@@ -30,14 +37,21 @@ class NotificacionAdapter(private val context: Context, private val unseenNotifi
             encabezado.text = notificacion.encabezado
             mensaje.text = notificacion.mensaje
             fechaHora.text = notificacion.fechaHora.toString() // convierte DateTime a String según tus necesidades
+            nombreCortoCisterna.text = notificacion.nombreCortoCisterna
 
             // Controla la visibilidad del botón y el color de fondo según el estado de la notificación
             if (notificacion.notificacionVista) {
                 imgCheck.visibility = View.GONE
-                layoutCard.setCardBackgroundColor(Color.GRAY) // Puedes reemplazar este valor por el color de tu elección
+                val typedValue = TypedValue()
+                context.theme.resolveAttribute(com.google.android.material.R.attr.colorSurfaceVariant, typedValue, true)
+                val colorSurfaceVariant = typedValue.data
+                layoutCard.setCardBackgroundColor(colorSurfaceVariant)  // Puedes reemplazar este valor por el color de tu elección
             } else {
                 imgCheck.visibility = View.VISIBLE
-                layoutCard.setCardBackgroundColor(Color.WHITE) // Puedes reemplazar este valor por el color de tu elección
+                val typedValue = TypedValue()
+                context.theme.resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValue, true)
+                val colorSurface = typedValue.data
+                layoutCard.setCardBackgroundColor(colorSurface) // Puedes reemplazar este valor por el color de tu elección
                 imgCheck.setOnClickListener {
                     markNotificationAsRead(notificacion.idNotificacion)
                     (context as ActivityNotifications).loadNotifications()

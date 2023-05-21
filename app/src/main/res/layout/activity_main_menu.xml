@@ -30,7 +30,7 @@
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_FillWaterTank"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginTop="24dp"
@@ -45,7 +45,7 @@
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_Statistics"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
 
@@ -61,7 +61,7 @@
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_Settings"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
 
@@ -78,9 +78,7 @@
         android:id="@+id/TV_MenuSaldoActual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="22dp"
-        android:layout_marginEnd="32dp"
         android:text="@string/bienvenido"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,9 +89,7 @@
         android:id="@+id/TV_Username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
         android:layout_marginTop="26dp"
-        android:layout_marginEnd="144dp"
         android:text="@string/username"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,11 +100,8 @@
         android:id="@+id/iv_LogoApp"
         android:layout_width="269dp"
         android:layout_height="183dp"
-        android:layout_marginStart="72dp"
         android:layout_marginTop="19dp"
-        android:layout_marginEnd="71dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_MiPrimerBanco"
         app:srcCompat="@drawable/logo_color_no_background" />

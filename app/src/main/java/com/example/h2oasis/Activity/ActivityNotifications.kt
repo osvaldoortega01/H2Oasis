@@ -13,6 +13,8 @@ import com.example.h2oasis.R
 import com.example.h2oasis.SQLConnection
 import com.example.h2oasis.H2Oasis.Companion.prefs
 import java.sql.PreparedStatement
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ActivityNotifications : AppCompatActivity() {
     private var sqlConnection = SQLConnection()
@@ -40,25 +42,43 @@ class ActivityNotifications : AppCompatActivity() {
         try {
             val sqlGetNotificaciones: PreparedStatement = sqlConnection.dbConn()
                 ?.prepareStatement(
-                    "SELECT * FROM notificaciones WHERE idUsuario = ? AND notificacionVista = ? ORDER BY fechaHora DESC;"
+                    "SELECT * FROM notificaciones as n " +
+                    "INNER JOIN cisternas as c ON n.idCisterna = c.idCisterna " +
+                    "WHERE idUsuario = ? AND notificacionVista = ? " +
+                    "ORDER BY fechaHora DESC;"
                 )!!
             sqlGetNotificaciones.setString(1, prefs.getId())
             sqlGetNotificaciones.setBoolean(2, notificacionVista)
             val resultNotificaciones = sqlGetNotificaciones.executeQuery()
 
+
+
+
             while (resultNotificaciones.next()) {
+                val dateTimeString = resultNotificaciones.getString("fechaHora")
+                val truncatedDateTimeString = dateTimeString.substringBeforeLast(".")
+
+                val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                val dateTime = LocalDateTime.parse(truncatedDateTimeString, dateTimeFormatter)
+                val outputFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
+                val formattedDate = dateTime.format(outputFormatter)
+
+
                 val notificacion = Notificacion(
                     resultNotificaciones.getInt("idNotificacion"),
                     resultNotificaciones.getString("mensaje"),
                     resultNotificaciones.getString("encabezado"),
-                    resultNotificaciones.getString("fechaHora"),
+                    formattedDate,
                     resultNotificaciones.getInt("idUsuario"),
                     resultNotificaciones.getInt("idCisterna"),
+                    resultNotificaciones.getString("nombreCorto"),
                     resultNotificaciones.getBoolean("notificacionVista")
                 )
+
                 listaDeNotificaciones.add(notificacion)
             }
         } catch (ex: Exception) {
+            Log.e("Error", ex.message.toString())
             Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
         }
         return listaDeNotificaciones

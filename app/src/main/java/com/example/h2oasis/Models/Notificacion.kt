@@ -9,5 +9,6 @@ data class Notificacion(
     val fechaHora: String,
     val idUsuario: Int,
     val idCisterna: Int,
+    val nombreCortoCisterna: String,
     val notificacionVista: Boolean
 )

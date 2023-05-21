@@ -20,14 +20,20 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/tv_mensaje"
+            android:id="@+id/tv_fecha_hora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tv_fecha_hora"
+            android:id="@+id/tv_nombreCisterna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_mensaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
         <ImageView
             android:id="@+id/imgCheck"
