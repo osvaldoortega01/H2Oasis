@@ -1,15 +1,23 @@
 package com.example.h2oasis.Activity
 
+import android.app.Notification
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.work.Data
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.h2oasis.H2Oasis.Companion.prefs
+import com.example.h2oasis.Models.Notificacion
 import com.example.h2oasis.R
+import com.example.h2oasis.Worknoti
 import java.sql.SQLException
+import java.time.LocalDate
+import java.util.Calendar
+import java.util.UUID
 
 class ActivityMainMenu : AppCompatActivity() {
 
@@ -38,8 +46,43 @@ class ActivityMainMenu : AppCompatActivity() {
         btnNotifications.setOnClickListener{
             openNotificaciones()
         }
+
+        val btnSettings: Button = findViewById(R.id.btn_Settings)
+        var notifications =  Notificacion(
+            1,
+            "Mensaje",
+            "Encabezado",
+            "12-05-2023",
+        1,
+            2,
+            "nombreCorto",
+            false
+        )
+
+        btnSettings.setOnClickListener{
+            prueba(notifications)
+        }
     }
 
+    private fun generatekey (): String {
+        return UUID.randomUUID().toString()
+    }
+    private fun EnviarData(titulo:String, detalle:String, id_noti:Int): Data {
+        return Data. Builder ()
+            .putString("Titulo", titulo)
+            .putString("Detalle", detalle)
+            .putInt("idnoti", id_noti). build()
+    }
+
+    fun prueba(notification: Notificacion){
+        val tag = generatekey()
+//        val alertTime = calendar.timeInMillis - System.currentTimeMillis()
+        val alertTime = 3000.toLong()
+        val random = (Math.random()*50+1).toInt () // IdNotificacion
+        val data = EnviarData(notification.encabezado, notification.mensaje, random)
+        Worknoti.GuardarNoti(alertTime, data, "tag1")
+        Toast.makeText( this,"Notificacion Guardada.", Toast.LENGTH_SHORT).show()
+    }
     /**
      * Abre la actividad de Cisternas, que contiene el DataGridView
      */
