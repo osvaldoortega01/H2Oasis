@@ -124,11 +124,6 @@ class ActivityUserProfile : AppCompatActivity() {
         return true
     }
 
-    private fun openChangePassword(){
-        var intent = Intent(this, ActivityChangePassword::class.java)
-        startActivity(intent)
-    }
-
     private fun showConfirmation(): Boolean{
         AlertDialog.Builder(this)
             .setTitle("Eliminar")
@@ -160,6 +155,11 @@ class ActivityUserProfile : AppCompatActivity() {
             applicationContext, "Usuario eliminada con éxito",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun openChangePassword(){
+        var intent = Intent(this, ActivityChangePassword::class.java)
+        startActivity(intent)
     }
 
     private fun logOut(){

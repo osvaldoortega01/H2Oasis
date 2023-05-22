@@ -50,24 +50,25 @@ class ActivityMainMenu : AppCompatActivity() {
         val btnSettings: Button = findViewById(R.id.btn_Settings)
         var notifications =  Notificacion(
             1,
-            "Mensaje",
-            "Encabezado",
+            "Terminó el llenado de la cisterna 4",
+            "Terminó llenado",
             "12-05-2023",
         1,
             2,
-            "nombreCorto",
+            "Cisterna 4",
             false
         )
 
         btnSettings.setOnClickListener{
             prueba(notifications)
+            openConfiguracion()
         }
     }
 
     private fun generatekey (): String {
         return UUID.randomUUID().toString()
     }
-    private fun EnviarData(titulo:String, detalle:String, id_noti:Int): Data {
+    private fun enviarData(titulo:String, detalle:String, id_noti:Int): Data {
         return Data. Builder ()
             .putString("Titulo", titulo)
             .putString("Detalle", detalle)
@@ -77,9 +78,9 @@ class ActivityMainMenu : AppCompatActivity() {
     fun prueba(notification: Notificacion){
         val tag = generatekey()
 //        val alertTime = calendar.timeInMillis - System.currentTimeMillis()
-        val alertTime = 3000.toLong()
+        val alertTime = 5000.toLong()
         val random = (Math.random()*50+1).toInt () // IdNotificacion
-        val data = EnviarData(notification.encabezado, notification.mensaje, random)
+        val data = enviarData(notification.encabezado, notification.mensaje, random)
         Worknoti.GuardarNoti(alertTime, data, "tag1")
         Toast.makeText( this,"Notificacion Guardada.", Toast.LENGTH_SHORT).show()
     }
@@ -98,14 +99,25 @@ class ActivityMainMenu : AppCompatActivity() {
         var intent = Intent(this, ActivityUserProfile::class.java)
         startActivity(intent)
     }
-
+    /**
+     * Abre la actividad de Estadísticas
+     */
     private fun openEstadisticas(){
         var intent = Intent(this, ActivityMeasurement::class.java)
         startActivity(intent)
     }
-
+    /**
+     * Abre la actividad de Notificaciones
+     */
     private fun openNotificaciones(){
         var intent = Intent(this, ActivityNotifications::class.java)
+        startActivity(intent)
+    }
+    /**
+     * Abre la actividad de Configuración
+     */
+    private fun openConfiguracion(){
+        var intent = Intent(this, ActivitySettings::class.java)
         startActivity(intent)
     }
 
@@ -122,6 +134,9 @@ class ActivityMainMenu : AppCompatActivity() {
         }
     }
 
+    /**
+     * Elimina todas las variables guardads en prefs y redirige al menú principal
+     */
     private fun logOut(){
         prefs.wipe()
         var intent = Intent(this, ActivityLogin::class.java)

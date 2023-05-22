@@ -14,6 +14,8 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 class ActivityRegistration : AppCompatActivity() {
 
@@ -40,7 +42,7 @@ class ActivityRegistration : AppCompatActivity() {
         val etPassword: TextInputEditText = findViewById(R.id.tiet_Password)
         val etConfirmPassword: TextInputEditText = findViewById(R.id.tiet_ConfirmPassword)
         val etEmailAddress: TextInputEditText = findViewById(R.id.tiet_EmailAddress)
-        val fecha = LocalDateTime.now()
+        val fecha = LocalDateTime.now(ZoneOffset.UTC)
 
         val pas1 = etPassword.text.toString()
         val cpas1 = etConfirmPassword.text.toString()
@@ -117,7 +119,7 @@ class ActivityRegistration : AppCompatActivity() {
             nuevoUsuario.setString(2, etUsername.text.toString())
             nuevoUsuario.setString(3, etPassword.text.toString())
             nuevoUsuario.setString(4, etEmailAddress.text.toString())
-            nuevoUsuario.setString(5, fecha.toString())
+            nuevoUsuario.setString(5, fecha.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
             nuevoUsuario.setBoolean(6, true)
             nuevoUsuario.executeUpdate()
             showToast("Cuenta Creada Exitosamente")

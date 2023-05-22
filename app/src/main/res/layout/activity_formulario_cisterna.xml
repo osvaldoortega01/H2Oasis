@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_color_no_background"
+        app:srcCompat="@drawable/baseline_water_drop_24"
         android:layout_marginTop="24sp"/>
 
 

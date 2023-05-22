@@ -84,6 +84,10 @@ class ActivityChangePassword : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Actualiza la contraseña del usuario en sesión
+     * @param newPassword nueva constraseña
+     */
     private fun updatePassword(newPassword: String) {
         try {
             val updatePasswordSQL: PreparedStatement = sqlConnection.dbConn()
@@ -101,11 +105,15 @@ class ActivityChangePassword : AppCompatActivity() {
 
     /**
      * Abre un mensaje Toast con el parámetro indicado
+     * @param message a mostrar en el Toast
      */
     private fun showToast(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
+    /**
+     * Abre la actividad de Login
+     */
     private fun openLogin(){
         var intent = Intent(this, ActivityLogin::class.java)
         startActivity(intent)

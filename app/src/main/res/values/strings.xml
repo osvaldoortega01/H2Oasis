@@ -77,5 +77,17 @@
     <string name="monthly">Mensual</string>
     <string name="setAsChecked">Marcar como leído</string>
     <string name="seenNotifications">Notificaciones leídas</string>
+    <string name="frequency">Frecuencia</string>
+    <string name="tipo_hint">Tipo de Frecuencia</string>
+    <string name="semanal">Semanal</string>
+    <string name="cisternas">Cisternas</string>
+    <string name="deactivateNotifications">Desactivar notificaciones</string>
+
+    <string-array name="tipo_notificacion">
+        <item>Horas</item>
+        <item>Días</item>
+        <item>Semanas</item>
+        <item>Meses</item>
+    </string-array>
 
 </resources>

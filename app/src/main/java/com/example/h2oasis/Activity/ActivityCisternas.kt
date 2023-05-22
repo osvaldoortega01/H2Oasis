@@ -72,6 +72,9 @@ class ActivityCisternas : AppCompatActivity() {
         }
     }
 
+    /**
+     * Obtiene la lista que permite desplegar el RecyclerView con todas las cisternas
+     */
     private fun createWaterTankList() {
         try {
 
@@ -112,12 +115,11 @@ class ActivityCisternas : AppCompatActivity() {
 
     }
 
-    private fun openAddWaterTank(idWaterTank: Int?){
-        var intent = Intent(this, ActivityFormularioCisterna::class.java)
-        intent.putExtra("idCisterna", idWaterTank)
-        startActivity(intent)
-    }
 
+    /**
+     * Eliminar la cisterna de manera lógica en la BD
+     * @param idWaterTank a eliminar
+     */
     private fun deleteWaterTank(idWaterTank: Int){
         try {
             val editCisternaSQL: PreparedStatement = sqlConnection.dbConn()
@@ -138,6 +140,10 @@ class ActivityCisternas : AppCompatActivity() {
         ).show()
     }
 
+    /**
+     * Muestra un diálogo para confirmar la eliminación de la cisterna
+     * @param idWaterTank a eliminar
+     */
     private fun showConfirmation(idWaterTank: Int?): Boolean{
         AlertDialog.Builder(this)
             .setTitle("Eliminar")
@@ -151,9 +157,23 @@ class ActivityCisternas : AppCompatActivity() {
         return false
     }
 
+    /**
+     * Abre la actividad de Cisternas
+     */
     private fun openCisternas(){
         var intent = Intent(this, ActivityCisternas::class.java)
         startActivity(intent)
         finish()
     }
+
+    /**
+     * Abre el formulario de las cisternas
+     * @param idWaterTank si es seleccionado para edición o nulo si es inserción
+     */
+    private fun openAddWaterTank(idWaterTank: Int?){
+        var intent = Intent(this, ActivityFormularioCisterna::class.java)
+        intent.putExtra("idCisterna", idWaterTank)
+        startActivity(intent)
+    }
+
 }

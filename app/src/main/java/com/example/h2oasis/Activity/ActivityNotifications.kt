@@ -32,8 +32,6 @@ class ActivityNotifications : AppCompatActivity() {
         loadNotifications()
         rvNotifications.layoutManager = LinearLayoutManager(this)
         rvNotifications.adapter = notificacionAdapter
-
-
     }
 
     private fun fetchNotificacionesFromDatabase(notificacionVista: Boolean): List<Notificacion> {

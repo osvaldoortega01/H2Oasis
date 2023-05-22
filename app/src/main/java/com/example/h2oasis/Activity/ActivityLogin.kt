@@ -128,16 +128,24 @@ class ActivityLogin : AppCompatActivity() {
         openMainMenu()
     }
 
+    /**
+     * Abre la actividad de Menú Principal
+     */
     private fun openMainMenu() {
         var intent = Intent(this, ActivityMainMenu::class.java)
         startActivity(intent)
     }
-
+    /**
+     * Abre la actividad de Registro
+     */
     private fun openRegister(){
         var intent = Intent(this, ActivityRegistration::class.java)
         startActivity(intent)
     }
-
+    /**
+     * Desactiva la funcionalidad de retroceder en esta pantalla.
+     * Debido a que algunas veces al cerrar sesión se podía reingresar al menú principal dando atrás
+     */
     override fun onBackPressed() {
         moveTaskToBack(true)
     }

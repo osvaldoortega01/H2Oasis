@@ -59,6 +59,11 @@ class ActivityFormularioCisterna : AppCompatActivity() {
         }
     }
 
+    /**
+     * Añade una cisterna a la BD, primero realiza la validación de si los campos no están vacíos
+     * Para después crear el registro en la tabla cisternas y la relación en la tabla
+     * usuarioCisterna
+     */
     @Transaction
     private fun addWaterTank(){
 
@@ -101,6 +106,12 @@ class ActivityFormularioCisterna : AppCompatActivity() {
             Toast.makeText(this, ex.message, Toast.LENGTH_SHORT).show()
         }
     }
+
+    /**
+     * Elimina una cisterna mediante la variable que se pasó como intent.extra
+     * Este método solo está disponible si se tiene una cisterna selecccionada (Modo Edición)
+     * Solo elimina la cisterna de manera lógica
+     */
     private fun deleteWaterTank(){
         val idCisterna = intent.extras?.getInt("idCisterna")
         try {
@@ -135,13 +146,21 @@ class ActivityFormularioCisterna : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Utiliza el intent.extra para obtener el idCisterna y utilizarlo
+     * para entrar en modo edición para poner actualizar los campos
+     */
     private fun editWaterTank() {
         val idCisterna = intent.extras?.getInt("idCisterna")
 
         try {
             if (areFieldsNotEmpty(etCapacity, etShortName)) {
                 val editCisternaSQL: PreparedStatement = sqlConnection.dbConn()
-                    ?.prepareStatement("UPDATE cisternas SET capacidad = ?, nombreCorto = ?, descripcion = ? WHERE idCisterna = ?")!!
+                    ?.prepareStatement("UPDATE cisternas " +
+                            "SET capacidad = ?, " +
+                                "nombreCorto = ?, " +
+                                "descripcion = ? " +
+                            "WHERE idCisterna = ?")!!
                 editCisternaSQL.setString(1, etCapacity.text.toString())
                 editCisternaSQL.setString(2, etShortName.text.toString())
                 editCisternaSQL.setString(3, etDescription.text.toString())
@@ -159,11 +178,19 @@ class ActivityFormularioCisterna : AppCompatActivity() {
         }
     }
 
+    /**
+     * Carga una cisterna, utilizado al estar en modo edición, pues como se pasa el idCisterna como parámetro
+     * Lo utiliza para cargar los EditText
+     */
     private fun loadWaterTank(idCisterna: Int) {
 
         try {
             val cisternaExistenteSQL: PreparedStatement = sqlConnection.dbConn()
-                ?.prepareStatement("SELECT capacidad, nombreCorto, descripcion FROM cisternas WHERE idCisterna = ?")!!
+                ?.prepareStatement("SELECT capacidad, " +
+                                        "nombreCorto, " +
+                                        "descripcion " +
+                                    "FROM cisternas " +
+                                    "WHERE idCisterna = ?")!!
             cisternaExistenteSQL.setInt(1, idCisterna)
             val cisternaExistenteRS = cisternaExistenteSQL.executeQuery()
 
@@ -178,7 +205,9 @@ class ActivityFormularioCisterna : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Abre la actividad de Cisternas
+     */
     private fun openCisternas(){
         var intent = Intent(this, ActivityCisternas::class.java)
         startActivity(intent)
